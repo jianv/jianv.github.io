@@ -39,7 +39,7 @@ staticman:
   path                   : # "/_data/comments/{options.slug}" (default)
   requiredFields         : # ['name', 'email', 'message']
   transforms:
-    email                : "sun.jian@hotmail.com"
+    email                : # "sun.jian@hotmail.com"
   generatedFields:
     date:
       type               : # "date"
@@ -87,7 +87,7 @@ author:
   avatar           : "/images/photo.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Science Portfolio"
   location         : "Frisco, Texas"
-  email            :
+  email            : "sun.jian@hotmail.com"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :

@@ -4,16 +4,16 @@ date: 2016-11-02
 tags: [Satellite Altimetry, Tibet, Glaciers]
 excerpt: "The Tibet glacier Estimation from ICESat and CryoSat-2 Observations"
 mathjax: "true"
----
 
+---
 ## 1.Introduction
 Here's some basic text.
-<img src="{{ site.url }}{{ site.baseurl }}/images/gps/1_gnssr_schematic.png" alt="linearly separable data">
+<img src="{{ site.url }}{{ site.baseurl }}/images/gps/1_gnssr_schematic.png" alt="linearly separable data" height="10" width="20">
 ## 2.Methodology
 Here's some basic text.
 Here's some math:
 $$z=x+y$$
-<img src="{{ site.url }}{{ site.baseurl }}/images/gps/5_lakeiceschematics.png" alt="linearly separable data">
+<img src="{{ site.url }}{{ site.baseurl }}/images/gps/5_lakeiceschematics.png" alt="linearly separable data" height="10" width="30">
 ## 3.Data
 Here's some basic text.
 ## 4.Results and Discussion

@@ -8,12 +8,12 @@ mathjax: "true"
 ---
 ## 1.Introduction
 Here's some basic text.
-<img src="{{ site.url }}{{ site.baseurl }}/images/gps/1_gnssr_schematic.png" alt="linearly separable data" height="10" width="20">
+<img src="{{ site.url }}{{ site.baseurl }}/images/gps/1_gnssr_schematic.png" alt="linearly separable data">
 ## 2.Methodology
 Here's some basic text.
 Here's some math:
 $$z=x+y$$
-<img src="{{ site.url }}{{ site.baseurl }}/images/gps/5_lakeiceschematics.png" alt="linearly separable data" height="10" width="30">
+<img src="{{ site.url }}{{ site.baseurl }}/images/gps/5_lakeiceschematics.png" alt="linearly separable data">
 ## 3.Data
 Here's some basic text.
 ## 4.Results and Discussion

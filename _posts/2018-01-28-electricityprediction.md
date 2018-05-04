@@ -3,7 +3,7 @@ title: "Machine Learning Project: electricity prediction"
 date: 2018-02-02
 tags: [Data Science, Machine Learning, Regression]
 excerpt: "Machine Learning, Perceptron, Data Science"
-mathjax: "true"
+# mathjax: "true"
 ---
 ## 1.Background
 Here's some basic text.

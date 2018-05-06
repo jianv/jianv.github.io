@@ -7,7 +7,7 @@ mathjax: "true"
 ---
 ## 1.Introduction
   The GNSS currently comprises of operational systems including the Global Positing System (GPS), the Global Navigation Satellite System (GLONASS), Galileo, and Beidou. It was originally designed for time transfer, global positioning and navigation anywhere on Earth and under all-weather situations, by using direct radar signals operating in L-band. Creatively, researchers found that the GNSS signals reflected from the sea and ground surface contain useful geophysical information. This remote sensing technique that takes advantage of the opportunistic GNSS reflected signals, known as GNSS Reflectometry (GNSS-R).
-  <img src="{{ site.url }}{{ site.baseurl }}/images/gpsr-lakeice/1_1.jpg" alt="linearly separable data">
+  <img src="{{ site.url }}{{ site.baseurl }}/images/gpsr_lakeice/1_1.jpg" alt="linearly separable data">
   For the ground-based GNSS-R altimetry, Larson et al. (2013) first presented a method based on multipath theory to estimate local sea level variations from a single geodetic GPS receiver. In this post, a new method is present to estimate lake ice thickness and its changes in Lake Huron, using collocated GNSS-R and tide gauge data sets. First, the concept of lake ice thickness retrieval using a single geodetic GPS receiver is introduced. Then, GNSS-R data analysis using data collected at the Harbor Beach GNSS site, on Lake Huron is utilized to generate a 11-year lake ice thickness product, 2004–2016, with a location.
   
 ## 2.Station Installation

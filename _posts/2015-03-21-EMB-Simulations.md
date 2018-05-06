@@ -1,5 +1,5 @@
 ---
-title: "GPS-Reflectometry:The Electromagnetic Bias Simulation"
+title: "GPS-Reflectometry: The Electromagnetic Bias Simulation"
 date: 2015-03-21
 excerpt: "The electromagnetic (EM) bias originates from the non-symmetric property of sea wave due to the sea wave crests are sharper than sea wave troughs. This post focuses on the estimation of theoretical EM bias for ground-based GPS-R altimetry."
 mathjax: "true"
@@ -9,7 +9,7 @@ mathjax: "true"
   The electromagnetic (EM) bias originates from the non-symmetric property of sea wave that is significant in sea level measurement by the remote sensing technique. Because the sea wave crests are sharper than sea wave troughs, more electromagnetic signals are reflected from wave troughs than crests that result in the underestimation of sea level height (Park et al., 2016).This post focuses on the estimation of theoretical EM bias for ground-based GPS-R altimetry.
     
 ## 2.Methodology
-  The demonstrates the primary theoretical EM modeling procedures, in which the cool (green to blue) tones represent the linear processes, and the warm (pink to red) tones are nonlinear processes. In the first step, a set of linear sea surface is generated and go through a hydrodynamic transformation to obtain the corresponding nonlinear sea surface realizations. Then, the pulse returned from both linear and nonlinear sea surfaces are achieved by the bistatic geometry of GNSS-R altimetry. Finally, the theoretical EM bias model is estimated by comparing the averaged linear and nonlinear surface pulse returns.
+  The figures demonstrates the primary theoretical EM modeling procedures, in which the cool (green to blue) tones represent the linear processes, and the warm (pink to red) tones are nonlinear processes. In the first step, a set of linear sea surface is generated and go through a hydrodynamic transformation to obtain the corresponding nonlinear sea surface realizations. Then, the pulse returned from both linear and nonlinear sea surfaces are achieved by the bistatic geometry of GNSS-R altimetry. Finally, the theoretical EM bias model is estimated by comparing the averaged linear and nonlinear surface pulse returns.
 <img src="{{ site.url }}{{ site.baseurl }}/images/gpsr_emb_simulation/2_1.png" alt="linearly separable data">
     
 ## 3.Sea Surface Modeling
@@ -24,7 +24,7 @@ mathjax: "true"
     
 ## 4.Pulse Return
   The figure illustrates the geometry of the bistatic configuration in which a GNSS-R transmitter illuminates a sea surface facet. 
-  <img src="{{ site.url }}{{ site.baseurl }}/images/gpsr_emb_simulation/4_1.png" alt="linearly separable data".
+  <img src="{{ site.url }}{{ site.baseurl }}/images/gpsr_emb_simulation/4_1.png" alt="linearly separable data">
   With the generated sea surface model, the pulse returns of the GPS receiver in the time domain are expressed by Park et al. (2016).
     
 ## 5.Results

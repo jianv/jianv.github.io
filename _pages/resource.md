@@ -1,6 +1,8 @@
 ---
-title: "Resource"
+layout: archive
 permalink: /resource/
+title: "Resource"
+author_profile: true
 header:
   image: "/images/home/header1.jpg"
   

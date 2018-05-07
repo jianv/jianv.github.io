@@ -76,4 +76,5 @@ Training Schools:
 Others:
 * Resume Polish
   [link](https://www.careereducation.columbia.edu/topics/resumes-cvs)
-  
+* The way to be a Data Scientist
+  [link](http://www.juyang.co/phd%E8%BD%AC%E8%A1%8C%E4%B9%8B%E8%B7%AF/)

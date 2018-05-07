@@ -9,13 +9,13 @@ header:
 ---
 Machine Learning Online Resource:
 * Intro to Machine Learning
-  https://www.udacity.com/course/intro-to-machine-learning–ud120
+  [link](https://www.udacity.com/course/intro-to-machine-learning–ud120)
 * Machine Learning
-  https://www.coursera.org/learn/machine-learning
+  [link](https://www.coursera.org/learn/machine-learning)
 * Intro to Artificial Intelligence
-  https://www.udacity.com/course/intro-to-artificial-intelligence–cs271
+  [link](https://www.udacity.com/course/intro-to-artificial-intelligence–cs271)
 * Deep Learning
-  https://www.coursera.org/specializations/deep-learning
+  [link](https://www.coursera.org/specializations/deep-learning)
   
 Big Data Online Resource:
 * SQL

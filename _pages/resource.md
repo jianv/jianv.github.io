@@ -51,7 +51,7 @@ Training Schools:
 * Insight Data Science
   [link](http://insightdatascience.com/)
 * Data Incubator
-  (https://www.thedataincubator.com/)
+  [link](https://www.thedataincubator.com/)
 
 Others:
 * Resume Polish

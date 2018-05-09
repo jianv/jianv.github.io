@@ -3,8 +3,10 @@ title: "GPS-Reflectometry: The Lake Huron Ice Thickness Estimation"
 date: 2017-08-21
 excerpt: "In this post, We present a new method to estimate lake ice thickness and its changes in Lake Huron, using collocated GPS-R and tide gauge data sets."
 mathjax: "true"
-
 ---
+Author: Jian Sun
+Original Source：Jian Sun, (2017). Ground-based GNSS-reflectometry sea level and lake ice thickness measurements (Doctoral dissertation). Retrieved from OhioLINK's ETD Center. (OCLC# 1028024162)
+
 ## 1.Introduction
   The GNSS currently comprises of operational systems including the Global Positing System (GPS), the Global Navigation Satellite System (GLONASS), Galileo, and Beidou. It was originally designed for time transfer, global positioning and navigation anywhere on Earth and under all-weather situations, by using direct radar signals operating in L-band. Creatively, researchers found that the GNSS signals reflected from the sea and ground surface contain useful geophysical information. This remote sensing technique that takes advantage of the opportunistic GNSS reflected signals, known as GNSS Reflectometry (GNSS-R).
   <img src="{{ site.url }}{{ site.baseurl }}/images/gpsr_lakeice/1_1.jpg" alt="linearly separable data">

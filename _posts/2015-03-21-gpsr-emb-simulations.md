@@ -1,6 +1,7 @@
 ---
 title: "GPS-Reflectometry: The Electromagnetic Bias Simulation"
 date: 2015-03-21
+author: Jian Sun
 excerpt: "The electromagnetic (EM) bias originates from the non-symmetric property of sea wave due to the sea wave crests are sharper than sea wave troughs. This post focuses on the estimation of theoretical EM bias for ground-based GPS-R altimetry."
 mathjax: "true"
 

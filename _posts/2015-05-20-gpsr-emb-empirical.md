@@ -3,7 +3,6 @@ title: "GPS-Reflectometry: The Empirical Electromagnetic Bias Estimation"
 date: 2015-05-20
 excerpt: "The goal of this post is to perform an empirical modeling of the L-band GNSS-R forward scattering electromagnetic bias."
 mathjax: "true"
-
 ---
 ## 1.Introduction
   On the purpose of performing an empirical modeling of the L-band GNSS-R forward scattering electromagnetic bias, two GNSS sites located in the Gulf of Mexico were selected as the case study as shown in Figure 3.5. These two GNSS stations are collocated with a tide gauge and an anemometer, respectively, that measure sea level and wind speed. These two stations were also installed on the offshore platforms that have open views of the ocean without obstacles. Therefore, these two GNSS sites provided the perfect configurations to conduct the EM Bias modeling experiment, and able to validate the results with the two GNSS-R time series.    

@@ -5,9 +5,6 @@ excerpt: "The electromagnetic (EM) bias originates from the non-symmetric proper
 mathjax: "true"
 
 ---
-### Author: Jian Sun
-### Citation:
-
 ## 1.Introduction
   The electromagnetic (EM) bias originates from the non-symmetric property of sea wave that is significant in sea level measurement by the remote sensing technique. Because the sea wave crests are sharper than sea wave troughs, more electromagnetic signals are reflected from wave troughs than crests that result in the underestimation of sea level height (Park et al., 2016).This post focuses on the estimation of theoretical EM bias for ground-based GPS-R altimetry.
     

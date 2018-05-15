@@ -44,15 +44,16 @@ Related Python code block:
         for iteration, indices in enumerate(fold,start=1):
           # Call the logistic regression model with a certain C parameter
           lr = LogisticRegression(C = c_param, penalty = 'l1')
-          lr.fit(x_train.iloc[indices[0],:], y_train.iloc[indices[0],:].values.ravel())
-            
-            # Predict values using the test indices in the training data
-            y_pred_undersample = lr.predict(x_train.iloc[indices[1],:].values)
-            recall_acc = recall_score(y_train.iloc[indices[1],:].values,y_pred_undersample)
-            recall_accs.append(recall_acc)
-         # The mean value of those recall scores is the metric we want to save and get hold of.
-        results_table.ix[j,'Mean recall score'] = np.mean(recall_accs)
-        j += 1
+          lr.fit(x_train.iloc[indices[0],:], y_train.iloc[indices[0],:].values.ravel()) 
+          
+          # Predict values using the test indices in the training data
+          y_pred_undersample = lr.predict(x_train.iloc[indices[1],:].values)
+          recall_acc = recall_score(y_train.iloc[indices[1],:].values,y_pred_undersample)
+          recall_accs.append(recall_acc)
+
+      # The mean value of those recall scores is the metric we want to save and get hold of.
+      results_table.ix[j,'Mean recall score'] = np.mean(recall_accs)
+      j += 1
 ```
 
 ### 3.2 Undersampling Dataset

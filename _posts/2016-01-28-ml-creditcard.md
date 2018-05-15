@@ -16,7 +16,7 @@ Before machine learning algorithm implementation, a data preprocess pipeline was
 
 ### 3.1 Raw Dataset
 Intuitively, the raw datasets were utilized to realize the Logistic Regression model. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing.
-<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/3_1_cparam.png" alt="linearly separable data">
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1_cparam.png" alt="linearly separable data">
 Therefore, the IRS of 100 was selected for Logistic Regression modeland and the confusion matrix showed that the recall value is only 0.62. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1.png" alt="linearly separable data">
 

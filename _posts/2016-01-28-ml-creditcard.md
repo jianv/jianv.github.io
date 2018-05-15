@@ -34,4 +34,4 @@ The threshold in Logistic Regression should be ano value
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/3_1.png" alt="linearly separable data">
 
 ## 5.Conclusion and Discussion
-  
+From the comparision, the oversampling method is the best option that can improve the result significantly. Even the oversampled datasets increased the expense of computation, the enhanced results could meet the high requirement of fraudulent transaction detection. To futrher the improvement, the experiment paied attention on the threshold selection in Logistic Regression. It showed that a better threshold can evidently boost the results. 

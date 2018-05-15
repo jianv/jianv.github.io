@@ -15,9 +15,13 @@ The datasets were collected from european cardholders, where have 492 frauds out
 Before machine learning algorithm implementation, a data preprocess pipeline was designed including missing value detection, shuffling and normalization using Python Scikit-learn. Then the Logistic Regression models were built seperately from raw datasets, undersampling datasets abd oversampling datasets.
 
 ### 3.1 Raw Dataset
-
+Intuitively, the raw datasets were utilized to realize the Logistic Regression model. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing.
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/3_1_cparam.png" alt="linearly separable data">
+Therefore, the IRS of 100 was selected for Logistic Regression modeland and the confusion matrix showed that the recall value is only 0.62. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1.png" alt="linearly separable data">
+
 ### 3.2 Undersampling Dataset
+
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_2.png" alt="linearly separable data">
 ### 3.3 Oversampling Dataset
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_3.png" alt="linearly separable data">

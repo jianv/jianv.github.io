@@ -18,12 +18,42 @@ Related Python code block:
 
 ## 3 Methodology
 Before machine learning algorithm implementation, a data preprocess pipeline was designed including missing value detection, shuffling and normalization using Python Scikit-learn. Then the Logistic Regression models were built seperately from raw datasets, undersampling datasets abd oversampling datasets.
+Related Python code block:
+```python
+    from sklearn.preprocessing import StandardScaler
+    data['normAmount'] = StandardScaler().fit_transform(data['Amount'].reshape(-1,1))
+```
 
 ### 3.1 Raw Dataset
 Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing.
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1_cparam.png" alt="linearly separable data">
 Therefore, the IRS of 100 was selected for Logistic Regression modeland and the confusion matrix showed that the recall value is only 0.62. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1.png" alt="linearly separable data">
+Related Python code block:
+```python
+    def cross_validation(x_train, y_train, c_param_range):
+      # k-fold and result table
+      fold = KFold(len(y_train),5,shuffle=False) 
+      results_table = pd.DataFrame(index = range(len(c_param_range),2), columns = ['C_parameter','Mean recall score'])
+      results_table['C_parameter'] = c_param_range
+      
+      # the k-fold will give 2 lists: train_indices = indices[0], test_indices = indices[1]
+      j = 0
+      for c_param in c_param_range:
+        recall_accs = []
+        for iteration, indices in enumerate(fold,start=1):
+          # Call the logistic regression model with a certain C parameter
+          lr = LogisticRegression(C = c_param, penalty = 'l1')
+          lr.fit(x_train.iloc[indices[0],:], y_train.iloc[indices[0],:].values.ravel())
+            
+            # Predict values using the test indices in the training data
+            y_pred_undersample = lr.predict(x_train.iloc[indices[1],:].values)
+            recall_acc = recall_score(y_train.iloc[indices[1],:].values,y_pred_undersample)
+            recall_accs.append(recall_acc)
+         # The mean value of those recall scores is the metric we want to save and get hold of.
+        results_table.ix[j,'Mean recall score'] = np.mean(recall_accs)
+        j += 1
+```
 
 ### 3.2 Undersampling Dataset
 To improve the results, the undersampling method was present to the raw dataset

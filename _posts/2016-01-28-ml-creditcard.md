@@ -30,7 +30,7 @@ Even though undersampling method improve the recall significantly, the value of 
 Related Python code block:
 ```python
     from imblearn.over_sampling import SMOTE
-    oversampler=SMOTE(random_state=0)
+    oversampler = SMOTE(random_state=0)
     x_train_oversample, y_train__oversample = oversampler.fit_sample(x_train, y_train)
 ```
 

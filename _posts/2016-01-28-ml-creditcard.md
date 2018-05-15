@@ -27,7 +27,11 @@ To improve the results, the undersampling method was present to the raw dataset
 ### 3.3 Oversampling Dataset
 Even though undersampling method improve the recall significantly, the value of negative True is pretty large. Hence, the oversampling method is introdueced to the rawdataset. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_3.png" alt="linearly separable data">
-
+Related codes:
+    from imblearn.over_sampling import SMOTE
+    oversampler=SMOTE(random_state=0)
+    x_train_oversample, y_train__oversample = oversampler.fit_sample(x_train, y_train)
+    
 ## 4 Threshold Optimization
 In the previous section, the default threshold value in Logistic Regression was used.  
 The threshold in Logistic Regression should be ano value 

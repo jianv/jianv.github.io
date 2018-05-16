@@ -30,54 +30,50 @@ data_shuffled = data.sample(frac=1)
 ```
 
 ### 3.1 Raw Dataset
-Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing.
+Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing and converges at 100. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1_cparam.png" alt="linearly separable data">
 Therefore, the IRS of 100 was selected for Logistic Regression modeland and the confusion matrix showed that the recall value is only 0.62. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1.png" alt="linearly separable data">
-(The recall is the ratio tp / (tp + fn) where tp is the number of true positives and fn the number of false negatives. )
+
 Related Python code block:
 ```python
-    def cross_validation(x_train, y_train, c_param_range):
-      # k-fold and result table
-      fold = KFold(len(y_train),5,shuffle=False) 
-      results_table = pd.DataFrame(index = range(len(c_param_range),2), columns = ['C_parameter','Mean recall score'])
-      results_table['C_parameter'] = c_param_range
-      
-      # the k-fold will give 2 lists: train_indices = indices[0], test_indices = indices[1]
-      j = 0
-      for c_param in c_param_range:
-        recall_accs = []
-        for iteration, indices in enumerate(fold,start=1):
-          # Call the logistic regression model with a certain C parameter
-          lr = LogisticRegression(C = c_param, penalty = 'l1')
-          lr.fit(x_train.iloc[indices[0],:], y_train.iloc[indices[0],:].values.ravel()) 
-          
-          # Predict values using the test indices in the training data
-          y_pred_undersample = lr.predict(x_train.iloc[indices[1],:].values)
-          recall_acc = recall_score(y_train.iloc[indices[1],:].values,y_pred_undersample)
-          recall_accs.append(recall_acc)
+from sklearn.cross_validation import KFold
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import recall_score 
 
-      # The mean value of those recall scores is the metric we want to save and get hold of.
-      results_table.ix[j,'Mean recall score'] = np.mean(recall_accs)
-      j += 1
+def cross_validation(x_train, y_train, c_param_range):
+  # k-fold and result table
+  fold = KFold(len(y_train),5,shuffle=False) 
+  results_table = pd.DataFrame(index = range(len(c_param_range),2), columns = ['C_parameter','Mean recall score'])
+  results_table['C_parameter'] = c_param_range
+      
+  # the k-fold will give 2 lists: train_indices = indices[0], test_indices = indices[1]
+  j = 0
+  for c_param in c_param_range:
+    recall_accs = []
+    for iteration, indices in enumerate(fold, start=1):
+    # Call the logistic regression model with a certain C parameter
+    lr = LogisticRegression(C = c_param, penalty = 'l1')
+    lr.fit(x_train.iloc[indices[0],:], y_train.iloc[indices[0],:].values.ravel())    
+    # Predict values using the test indices in the training data
+    y_pred = lr.predict(x_train.iloc[indices[1],:].values)
+    recall_acc = recall_score(y_train.iloc[indices[1],:].values,y_pred)
+    recall_accs.append(recall_acc)
+    # The mean value of those recall scores is the metric we want to save and get hold of.
+    results_table.ix[j,'Mean recall score'] = np.mean(recall_accs)
+    j += 1
 ```
 
 ### 3.2 Undersampling Dataset
-To improve the results, the undersampling method was present to the raw dataset
+To improve the results, the number of legitimate transactions was undersampled in the trainning dataset. Then the number of legitimate transactions is equal to the number of fraudulent transactions. After parameter optimization, the Logistic Regression was built by undersampling training dataset, and applied to the original test dataset. From the confusion matrix showed in the following figure, the value of recall was enhanced to 0.90. However, the value of the False Positive was pretty large. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_2.png" alt="linearly separable data">
 
 ### 3.3 Oversampling Dataset
-Even though undersampling method improve the recall significantly, the value of negative True is pretty large. Hence, the oversampling method is introdueced to the rawdataset. 
+To further improve the results, the number of fraudulent transactions was oversampled in the trainning dataset. Then the number of fraudulent was increased to the number of legitimate transactions. Finally, the Logistic Regression classifier was trained by oversampled dataset, and applied to the original test dataset. The confusion matrix showed that recall value of 0.90 is similiar with previous results, but False Positive was decrese from XXX to XXX.
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_3.png" alt="linearly separable data">
-Related Python code block:
-```python
-    from imblearn.over_sampling import SMOTE
-    oversampler = SMOTE(random_state=0)
-    x_train_oversample, y_train__oversample = oversampler.fit_sample(x_train, y_train)
-```
 
 ## 4 Threshold Optimization
-In the previous section, the default threshold value in Logistic Regression was used.  
+In the previous section, the default threshold value of 0.5 in Logistic Regression was used.  
 The threshold in Logistic Regression should be ano value 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/3_1.png" alt="linearly separable data">
 

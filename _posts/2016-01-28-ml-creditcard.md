@@ -5,23 +5,28 @@ excerpt: "Since the dataset is unbalanced, both of undersampling and oversamplin
 mathjax: "true"
 ---
 ## 1 Introduction
-The capability of investigating fraudulent transactions is essential for credit card companies to protect their customers. However, the dataset is usually unbalanced, because the number of fraudulent transactions is much smaller than the number of legitimate transactions. In this project, the undersampling and oversampling methods are introduced to solve this problem. 
+The capability of investigating fraudulent transactions is essential for credit card companies to protect their customers. However, the dataset is usually unbalanced, because the number of fraudulent transactions is much smaller than the number of legitimate transactions. In this project, the undersampling and oversampling methods are introduced seperately to solve this problem. 
   
 ## 2 Data  
 The datasets were collected from European cardholders in two days. From the following figures, we could find that the dataset is highly unbalanced, the fradulent transactions account for 0.172% of all transactions. The datasets and more details are available on KAGGLE [link](https://www.kaggle.com/mlg-ulb/creditcardfraud).
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/1_1.png" alt="linearly separable data">
 Related Python code block:
 ```python
-    ax.pie([nlegit, nfraud], explode = (0, 0.1), colors = ["green", "orange"], labels = ('Normal Transactions','Fraudulent Transactions'), autopct='%0.3f%%', shadow=False, startangle=135)
-    ax.axis('equal')
+import matplotlib.pyplot as plt
+fig = plt.figure(dpi = 120)
+ax = fig.subplots()
+ax.pie([nlegit, nfraud], explode = (0, 0.1), colors = ["green", "orange"], labels = ('Normal Transactions','Fraudulent Transactions'), autopct='%0.3f%%', shadow=False, startangle=135)
+ax.axis('equal')
 ```
 
 ## 3 Methodology
-Before machine learning algorithm implementation, a data preprocess pipeline was designed including missing value detection, shuffling and normalization using Python Scikit-learn. Then the Logistic Regression models were built seperately from raw datasets, undersampling datasets abd oversampling datasets.
+Before modeling, a data preprocess pipeline was designed including missing value detection, shuffling and normalization using Python Scikit-learn. Then the Logistic Regression models were built seperately from raw datasets, undersampling datasets and oversampling datasets. To protect every valuable customer, the credit card company need to successfully detect each fraudulent transaction. So the term of recall was utilized on the assessment of algorithm performance instead of precision[link](http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html). 
+
 Related Python code block:
 ```python
-    from sklearn.preprocessing import StandardScaler
-    data['normAmount'] = StandardScaler().fit_transform(data['Amount'].reshape(-1,1))
+from sklearn.preprocessing import StandardScaler
+data['normAmount'] = StandardScaler().fit_transform(data['Amount'].reshape(-1,1))
+data_shuffled = data.sample(frac=1)
 ```
 
 ### 3.1 Raw Dataset
@@ -29,6 +34,7 @@ Intuitively, the raw datasets were utilized to realize the Logistic Regression m
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1_cparam.png" alt="linearly separable data">
 Therefore, the IRS of 100 was selected for Logistic Regression modeland and the confusion matrix showed that the recall value is only 0.62. 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_1.png" alt="linearly separable data">
+(The recall is the ratio tp / (tp + fn) where tp is the number of true positives and fn the number of false negatives. )
 Related Python code block:
 ```python
     def cross_validation(x_train, y_train, c_param_range):

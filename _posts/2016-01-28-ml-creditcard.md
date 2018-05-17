@@ -106,4 +106,4 @@ def run(x_train, y_train):
 ```
 
 ## 4.Conclusion and Discussion
-From the comparision, the oversampling method is the best option that can mitigate the impact of unbalance dataset. Even the oversampled datasets increase the expense of computation, the enhanced results could meet the high requirement of fraudulent transaction detection. In the future work, the default threshold of the Logistic Regression could be another factor in the optimization.
+From the comparision, the oversampling method is the best option that can mitigate the impact of unbalance dataset. Even the oversampled datasets increase the expense of computation, the enhanced results could better meet the high requirement of fraudulent transaction detection. In the future work, the default threshold of the Logistic Regression could be another factor in the optimization.

@@ -60,6 +60,8 @@ To improve the results, the number of legitimate transactions was undersampled i
 
 Relevant Python undersampling code:
 ```python
+import numpy as np
+
 def run(x_train, y_train):
     # index
     idx_fraud = y_train[y_train.Class == 1].index
@@ -83,6 +85,7 @@ Relevant Python oversampling code:
 ```python
 import pandas as pd
 from imblearn.over_sampling import SMOTE
+
 def run(x_train, y_train):
     # Smote
     oversampler=SMOTE(random_state=0)

@@ -10,12 +10,12 @@ Electricity is produced at power plants and transmitted to consumers through gri
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/1_1_company.png" alt="linearly separable data">
 
 ## 2 Data  
-In this project, the historical electricity datasets were obtained from the FTP of New York State Independent Service Authority (NYISO) [link](http://mis.nyiso.com/public/P-58Blist.htm). There were mainly eleven load zones distributed around New York area, and the Capital subregion was selected to build regresson models. As a primary factor, the temperature impacts the electricity consumption notably. Hence, the weather dataset was considered from Weather Underground [link](https://www.wunderground.com/). 
+In this project, the historical electricity datasets were obtained from the FTP of New York State Independent Service Authority (NYISO) [link](http://mis.nyiso.com/public/P-58Blist.htm). There were mainly eleven load zones distributed around New York area, and the Capital subregion was selected to build regresson models. 
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/2_1_NYISO.png" alt="linearly separable data">
 
 ## 3 Feature Engineer
-The prediction of electricity demand is a problem based on time series, then more features were established based time stamps (Barta et al. 2015[link](https://arxiv.org/pdf/1506.06972.pdf)). The rule of new fearues were as follow:
+As a primary factor, the temperature impacts the electricity consumption notably. Hence, the weather dataset was considered from Weather Underground [link](https://www.wunderground.com/). The prediction of electricity demand is a problem based on time series, then more features were established based time stamps (Barta et al. 2015[link](https://arxiv.org/pdf/1506.06972.pdf)). The rule of new fearues were as follow:
 * dow: day of the week (integer 0-6)
 * doy: day of the year (integer 0-365)
 * day: day of the month (integer 1-31)
@@ -30,7 +30,7 @@ After data preprocess, there are several regression models were implemented in t
 ### 4.1 Ridge Regression
 Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing and converged at IRS of 10. 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cv_raw.png" alt="linearly separable data">
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_1_cv_ridge.png" alt="linearly separable data">
 
 With considering the cost of computation, the IRS of 10 was selected for Logistic Regression model and the confusion matrix showed that the recall value is 0.62. 
 可见，大概alpha=10~20的时候，可以把score达到0.135左右。
@@ -52,7 +52,7 @@ for alpha in alphas:
 ### 4.2 Random Forest
 To improve the results, the number of legitimate transactions was undersampled in the trainning dataset. Then the number of legitimate transactions is equal to the number of fraudulent transactions. After parameter optimization, the Logistic Regression was built by undersampling training dataset, and applied to the original test dataset. From the confusion matrix showed in the following figure, the value of recall was enhanced to 0.92. However, the value of the False Positive was pretty large. 
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cm_uds.png" alt="linearly separable data">
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_2_cv_random_forester.png" alt="linearly separable data">
 
 用RF的最优值达到了0.137
 
@@ -74,7 +74,7 @@ plt.title("Max Features vs CV Error");
 ### 4.3 Bagging
 To further improve the results, the number of fraudulent transactions was oversampled in the trainning dataset. Then the number of fraudulent was increased to the number of legitimate transactions. Finally, the Logistic Regression classifier was trained by oversampled dataset, and applied to the original test dataset. The confusion matrix showed that recall value of 0.92 that is same with previous results, but False Positive was decrese from 7780 to 2097.
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cm_os.png" alt="linearly separable data">
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_3_bagging_ridge.png" alt="linearly separable data">
 可见，前一个版本中，ridge最优结果也就是0.135；而这里，我们使用25个小ridge分类器的bagging，达到了低于0.132的结果。
 
 当然了，你如果并没有提前测试过ridge模型，你也可以用Bagging自带的DecisionTree模型：
@@ -93,6 +93,9 @@ for param in params:
     test_scores.append(np.mean(test_score))
 ```
 ### 4.4 Boosting
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_4_cv_boosting.png" alt="linearly separable data">
+
 ```python
 from sklearn.ensemble import AdaBoostRegressor
 params = [10, 15, 20, 25, 30, 35, 40, 45, 50]
@@ -103,6 +106,9 @@ for param in params:
     test_scores.append(np.mean(test_score))
 ```
 ### 4.5 XGBoost
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_5_cv_xgboost.png" alt="linearly separable data">
+
 惊了，深度为5的时候，错误率缩小
 到0.127
 ```python

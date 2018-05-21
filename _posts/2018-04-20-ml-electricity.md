@@ -25,71 +25,94 @@ The prediction of electricity demand is a problem based on time series, then mor
 * minute: minute of the day (integer 0-1339)
 
 # 4 Modeling
-There are several regression models were implemented in this section and the pros and cons were discussed in the next section.
+After data preprocess, there are several regression models were implemented in this section. Then the pros and cons were discussed in the next section.
 
-### 4.1 Raw Dataset
+### 4.1 Ridge Regression
 Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing and converged at IRS of 10. 
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cv_raw.png" alt="linearly separable data">
 
 With considering the cost of computation, the IRS of 10 was selected for Logistic Regression model and the confusion matrix showed that the recall value is 0.62. 
-
+可见，大概alpha=10~20的时候，可以把score达到0.135左右。
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cm_raw.png" alt="linearly separable data">
 
 Relevant Python libraries:
 ```python
-from sklearn.cross_validation import KFold
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import recall_score 
-from sklearn.metrics import confusion_matrix
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import cross_val_score
+
+alphas = np.logspace(-3, 2, 50)
+test_scores = []
+for alpha in alphas:
+    clf = Ridge(alpha)
+    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
+    test_scores.append(np.mean(test_score))
 ```
 
-### 4.2 Undersampling Dataset
+### 4.2 Random Forest
 To improve the results, the number of legitimate transactions was undersampled in the trainning dataset. Then the number of legitimate transactions is equal to the number of fraudulent transactions. After parameter optimization, the Logistic Regression was built by undersampling training dataset, and applied to the original test dataset. From the confusion matrix showed in the following figure, the value of recall was enhanced to 0.92. However, the value of the False Positive was pretty large. 
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cm_uds.png" alt="linearly separable data">
 
+用RF的最优值达到了0.137
+
 Relevant Python undersampling code:
 ```python
-import numpy as np
+from sklearn.ensemble import RandomForestRegressor
 
-def run(x_train, y_train):
-    # index
-    idx_fraud = y_train[y_train.Class == 1].index
-    idx_legit = y_train[y_train.Class == 0].index
-    nfraud = len(y_train[y_train.Class == 1])
-    # random index
-    randidx_legit = np.random.choice(idx_legit, nfraud, replace = False)
-    idx_uds = np.concatenate([idx_fraud, randidx_legit])
-    # undersampled dataset
-    x_train_uds = x_train.loc[idx_uds, :]
-    y_train_uds = y_train.loc[idx_uds, :]    
-    return x_train_uds, y_train_uds
+max_features = [.1, .3, .5, .7, .9, .99]
+test_scores = []
+for max_feat in max_features:
+    clf = RandomForestRegressor(n_estimators=200, max_features=max_feat)
+    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=5, scoring='neg_mean_squared_error'))
+    test_scores.append(np.mean(test_score))
+
+plt.plot(max_features, test_scores)
+plt.title("Max Features vs CV Error");
 ```
 
-### 4.3 Oversampling Dataset
+### 4.3 Bagging
 To further improve the results, the number of fraudulent transactions was oversampled in the trainning dataset. Then the number of fraudulent was increased to the number of legitimate transactions. Finally, the Logistic Regression classifier was trained by oversampled dataset, and applied to the original test dataset. The confusion matrix showed that recall value of 0.92 that is same with previous results, but False Positive was decrese from 7780 to 2097.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cm_os.png" alt="linearly separable data">
+可见，前一个版本中，ridge最优结果也就是0.135；而这里，我们使用25个小ridge分类器的bagging，达到了低于0.132的结果。
 
+当然了，你如果并没有提前测试过ridge模型，你也可以用Bagging自带的DecisionTree模型：
 Relevant Python oversampling code:
 ```python
-import pandas as pd
-from imblearn.over_sampling import SMOTE
+from sklearn.linear_model import Ridge
+from sklearn.ensemble import BaggingRegressor
+from sklearn.model_selection import cross_val_score
+ridge = Ridge(15)
 
-def run(x_train, y_train):
-    # Smote
-    oversampler=SMOTE(random_state=0)
-    x_train_smote, y_train_smote = oversampler.fit_sample(x_train, y_train)
-    x_train_os = pd.DataFrame(x_train_smote)
-    y_train_os = pd.DataFrame(y_train_smote)
-    # print
-    nfraud = len(y_train_os[y_train_os.values == 1])
-    nlegit = len(y_train_os[y_train_os.values == 0])
-    print("Fraud/Legitimate = %d/%d" %(nfraud, nlegit))
-    # return
-    return x_train_os, y_train_os
+params = [1, 10, 15, 20, 25, 30, 40]
+test_scores = []
+for param in params:
+    clf = BaggingRegressor(n_estimators=param, base_estimator=ridge)
+    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
+    test_scores.append(np.mean(test_score))
 ```
-
+### 4.4 Boosting
+```python
+from sklearn.ensemble import AdaBoostRegressor
+params = [10, 15, 20, 25, 30, 35, 40, 45, 50]
+test_scores = []
+for param in params:
+    clf = BaggingRegressor(n_estimators=param, base_estimator=ridge)
+    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
+    test_scores.append(np.mean(test_score))
+```
+### 4.5 XGBoost
+惊了，深度为5的时候，错误率缩小
+到0.127
+```python
+from xgboost import XGBRegressor
+params = [1,2,3,4,5,6]
+test_scores = []
+for param in params:
+    clf = XGBRegressor(max_depth=param)
+    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
+    test_scores.append(np.mean(test_score))
+```
 ## 5.Conclusion and Discussion
-From the comparision, the oversampling method is the best option that can mitigate the impact of unbalance dataset. Even the oversampled datasets increase the expense of computation, the enhanced results could better meet the high requirement of fraudulent transaction detection. In the future work, the default threshold of the Logistic Regression could be another factor in the optimization.
+NoteDecistion Tree is worse than ridge regression

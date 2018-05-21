@@ -1,6 +1,6 @@
 ---
 title: "GPS-Reflectometry: The Lake Huron Ice Thickness Estimation"
-date: 2017-08-21
+date: 2016-08-21
 excerpt: "In this post, We present a new method to estimate lake ice thickness and its changes in Lake Huron, using collocated GPS-R and tide gauge data sets."
 mathjax: "true"
 ---

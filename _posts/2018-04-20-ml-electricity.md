@@ -28,13 +28,9 @@ As a primary factor, the temperature impacts the electricity consumption notably
 After data preprocess, there are several regression models were implemented in this section. Then the pros and cons were discussed in the next section.
 
 ### 4.1 Ridge Regression
-Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing and converged at IRS of 10. 
+Since there are several features related to time stamp, the ridge regresson was used that can mitigate multicollinearity. From the cross validation, we could find that the error is minimum when alpha reaches 15.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_1_cv_ridge.png" alt="linearly separable data">
-
-With considering the cost of computation, the IRS of 10 was selected for Logistic Regression model and the confusion matrix showed that the recall value is 0.62. 
-可见，大概alpha=10~20的时候，可以把score达到0.135左右。
-<img src="{{ site.url }}{{ site.baseurl }}/images/ml_creditcard/2_cm_raw.png" alt="linearly separable data">
 
 Relevant Python libraries:
 ```python
@@ -42,42 +38,35 @@ from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score
 
 alphas = np.logspace(-3, 2, 50)
-test_scores = []
+errors = []
 for alpha in alphas:
     clf = Ridge(alpha)
-    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
-    test_scores.append(np.mean(test_score))
+    error = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
+    errors.append(np.mean(error))
 ```
 
 ### 4.2 Random Forest
-To improve the results, the number of legitimate transactions was undersampled in the trainning dataset. Then the number of legitimate transactions is equal to the number of fraudulent transactions. After parameter optimization, the Logistic Regression was built by undersampling training dataset, and applied to the original test dataset. From the confusion matrix showed in the following figure, the value of recall was enhanced to 0.92. However, the value of the False Positive was pretty large. 
+Random forest is an ensemble learning method that operate by constructing a multitude of decision trees. It can also mitigate the impacts of multicollinearity. When the maximum feature was set to 30%, the error arrived its valley of 0.137.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_2_cv_random_forester.png" alt="linearly separable data">
-
-用RF的最优值达到了0.137
 
 Relevant Python undersampling code:
 ```python
 from sklearn.ensemble import RandomForestRegressor
 
 max_features = [.1, .3, .5, .7, .9, .99]
-test_scores = []
+errors = []
 for max_feat in max_features:
     clf = RandomForestRegressor(n_estimators=200, max_features=max_feat)
-    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=5, scoring='neg_mean_squared_error'))
-    test_scores.append(np.mean(test_score))
-
-plt.plot(max_features, test_scores)
-plt.title("Max Features vs CV Error");
+    error = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=5, scoring='neg_mean_squared_error'))
+    errors.append(np.mean(error))
 ```
 
 ### 4.3 Bagging
-To further improve the results, the number of fraudulent transactions was oversampled in the trainning dataset. Then the number of fraudulent was increased to the number of legitimate transactions. Finally, the Logistic Regression classifier was trained by oversampled dataset, and applied to the original test dataset. The confusion matrix showed that recall value of 0.92 that is same with previous results, but False Positive was decrese from 7780 to 2097.
+Bagging is also an ensemble method that operates by creating many random sub-samples of dataset and trains a regression tree on each sub-sample. Final output considers all the sub-sample results. When the number of estimators is set to 25, the errors obtain its minimum of 0.132. 
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_3_bagging_ridge.png" alt="linearly separable data">
-可见，前一个版本中，ridge最优结果也就是0.135；而这里，我们使用25个小ridge分类器的bagging，达到了低于0.132的结果。
 
-当然了，你如果并没有提前测试过ridge模型，你也可以用Bagging自带的DecisionTree模型：
 Relevant Python oversampling code:
 ```python
 from sklearn.linear_model import Ridge
@@ -93,32 +82,34 @@ for param in params:
     test_scores.append(np.mean(test_score))
 ```
 ### 4.4 Boosting
+Boosting is based on bagging, but considers the performance of previous models. When the number of estimators is set to 40, the errors obtain its minimum of 0.133. 
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_4_cv_boosting.png" alt="linearly separable data">
 
 ```python
 from sklearn.ensemble import AdaBoostRegressor
+
 params = [10, 15, 20, 25, 30, 35, 40, 45, 50]
 test_scores = []
 for param in params:
-    clf = BaggingRegressor(n_estimators=param, base_estimator=ridge)
+    clf = AdaBoostRegressor(n_estimators=param, base_estimator=ridge)
     test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
     test_scores.append(np.mean(test_score))
 ```
 ### 4.5 XGBoost
+XGBoost is an implementation of graident boosting machines. It not only considers regularization that can reducing overfitting, but also allow users to define custimized optimizer. When the depth of decision tree was set to 5, the error was reduced to 0.127.
 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/4_5_cv_xgboost.png" alt="linearly separable data">
 
-惊了，深度为5的时候，错误率缩小
-到0.127
 ```python
 from xgboost import XGBRegressor
 params = [1,2,3,4,5,6]
-test_scores = []
+errors = []
 for param in params:
     clf = XGBRegressor(max_depth=param)
-    test_score = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
-    test_scores.append(np.mean(test_score))
+    error = np.sqrt(-cross_val_score(clf, X_train, y_train, cv=10, scoring='neg_mean_squared_error'))
+    errors.append(np.mean(error))
 ```
+
 ## 5.Conclusion and Discussion
 NoteDecistion Tree is worse than ridge regression

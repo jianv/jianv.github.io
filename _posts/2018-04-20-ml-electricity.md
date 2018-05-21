@@ -15,7 +15,17 @@ In this project, the historical electricity datasets were obtained from the FTP 
 <img src="{{ site.url }}{{ site.baseurl }}/images/ml_electricity/2_1_NYISO.png" alt="linearly separable data">
 
 ## 3 Feature Engineer
-Before modeling, a data preprocess pipeline was designed including missing value detection, shuffling and normalization using Python Scikit-learn. Then the Logistic Regression models were built seperately from raw datasets, undersampling datasets and oversampling datasets. To protect every valuable customer, the credit card company need to successfully detect each fraudulent transaction. So the term of recall was utilized on the assessment of algorithm performance instead of precision[link](http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html). 
+The prediction of electricity demand is a problem based on time series, then more features were established based time stamps (Barta et al. 2015[link](https://arxiv.org/pdf/1506.06972.pdf)). The rule of new fearues were as follow:
++ `dow`: day of the week (integer 0-6)
+- `doy`: day of the year (integer 0-365)
+* `day`: day of the month (integer 1-31)
+`woy`: week of the year (integer 1-52)
+`month`: month of the year (integer 1-12)
+`hour`: hour of the day (integer 0-23)
+`minute`: minute of the day (integer 0-1339)
+`t_m24`: load value from 24 hours earlier
+`t_m48`: load value from 48 hours earlier
+`tdif`: difference between load and t_m24
 
 # 4 Modeling
 ### 4.1 Raw Dataset

@@ -1,6 +1,6 @@
 ---
 title: "Machine Learning: Credit Card Fraudulent Transaction Detection using Python"
-date: 2016-01-28
+date: 2017-01-28
 excerpt: "Since the dataset was unbalanced, the Logistic Regression classifier was implemented by both of undersampling and oversampling datasets to detect fraudulent transactions."
 mathjax: "true"
 ---

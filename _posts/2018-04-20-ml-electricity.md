@@ -16,18 +16,17 @@ In this project, the historical electricity datasets were obtained from the FTP 
 
 ## 3 Feature Engineer
 The prediction of electricity demand is a problem based on time series, then more features were established based time stamps (Barta et al. 2015[link](https://arxiv.org/pdf/1506.06972.pdf)). The rule of new fearues were as follow:
-+ `dow`: day of the week (integer 0-6)
-- `doy`: day of the year (integer 0-365)
-* `day`: day of the month (integer 1-31)
-`woy`: week of the year (integer 1-52)
-`month`: month of the year (integer 1-12)
-`hour`: hour of the day (integer 0-23)
-`minute`: minute of the day (integer 0-1339)
-`t_m24`: load value from 24 hours earlier
-`t_m48`: load value from 48 hours earlier
-`tdif`: difference between load and t_m24
+* dow: day of the week (integer 0-6)
+* doy: day of the year (integer 0-365)
+* day: day of the month (integer 1-31)
+* woy: week of the year (integer 1-52)
+* month: month of the year (integer 1-12)
+* hour: hour of the day (integer 0-23)
+* minute: minute of the day (integer 0-1339)
 
 # 4 Modeling
+There are several regression models were implemented in this section and the pros and cons were discussed in the next section.
+
 ### 4.1 Raw Dataset
 Intuitively, the raw datasets were utilized to realize the Logistic Regression model, where have 492 frauds out of 284,807 transactions. Firstly, the parameter of Inverse of Regularization Strength (IRS) was optimized by 5-folds cross-validation and l1 penalty was selected. The results showed that the mean recall value keeps growing with IRS increasing and converged at IRS of 10. 
 

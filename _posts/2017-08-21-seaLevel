@@ -1,0 +1,28 @@
+---
+title: "Machine Learning: The Prediction on Sea Level Variation"
+date: 2017-01-28
+excerpt: "Since the dataset was unbalanced, the Logistic Regression classifier was implemented by both of undersampling and oversampling datasets to detect fraudulent transactions."
+mathjax: "true"
+---
+## 1 Introduction
+ 
+## 2 Data  
+The Robinson Point GPS site is named as “RPT1”, managed by NOAA’s National Geodetic Survey (NGS), is located in the south of Seattle, Washington. 
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_sealevel/1_1.png" alt="linearly separable data">
+
+## 3 Methodology
+In this Section, a detailed data processing flowchart of the SNR method is illustrated in Figure 4.2 that is based on the theory described in Chapter 2 and also by Larson et al. (2013). 
+## 4 Feature Engineer
+### 4.1 Electromagnetic Bias
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_sealevel/4_1_EMB.png" alt="linearly separable data">
+
+### 4.2 Tidal harmonic analysis 
+The tidal harmonic analysis is performed for the two GNSS-R sea level time series from two neighboring GPS stations, and the sea level time series from the tide gauge, using the “T_TIDE” package that is widely utilized by oceanographers (Pawlowicz et al., 2002). In this classical harmonic analysis, a set of sinusoids at specific periods based on astronomical parameters is employed to estimate the tidal amplitudes and phases. The observations from May to October of 2008 are not available due to the deficiency of RPT6 data. Finally, the 8-year time series from November of 2008 to October of 2016 for all three stations are used for this study. 
+In our analysis of 8-year observation, 68 tidal constituents with 95% confidence interval are calculated. The principle semi-diurnal and diurnal with selected tidal constituents are tabulated in Table 4.1. It should be note that decomposed tidal amplitudes and phases for SA and SSA are not astronomical tides. From the Table, it is clear that the two adjacent GNSS-R and tide gauge sea level time series all embed strong semi-diurnal and diurnal tides. As the largest constituent, the “principal lunar semi-diurnal” of M_2 has the amplitude larger than 30 cm. And the “lunar diurnal constituent” of K_1 is the second largest tidal constituent with the amplitude larger than 27 cm. There is an excellent agreement, as it should be, between the estimated amplitudes and phases from the two GNSS-R derived sea level data, from the collocated GNSS sites 38 m apart.
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_sealevel/4_2_tidal.png" alt="linearly separable data">
+
+### 4.3 Wind 
+<img src="{{ site.url }}{{ site.baseurl }}/images/ml_sealevel/4_3_wind.png" alt="linearly separable data">
+
+## 4.Conclusion and Discussion

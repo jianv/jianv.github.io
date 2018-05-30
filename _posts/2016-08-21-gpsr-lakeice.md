@@ -23,7 +23,7 @@ The satellite (laser and radar) altimetry, which provides global and consecutive
 
 The figure shows the schematic of a GPS antenna affected by multipath signal reflected from the ice surface. The direct signals are interfered by the reflected signals due to the phase difference. Although the ice has different properties of conductivity and relative permittivity with sea water, this interference pattern is visible as oscillations in the SNR data. From the simulated results in Chapter 2, the reflector height between GPS antenna and ice surface can be accurately calculated by the dominant oscillation frequency. In other words, the ice surface height can also be obtained by the SNR technique. Therefore, the lake ice thickness T is as follow,
 
-$$T=h_ice-h_water$$ 
+$$T=h_i_c_e-h_w_a_t_e_r$$ 
 
 The figure shows daily surface heights from GPS observation and conventional tide gauge. The ice thickness is equal the difference between these two measurements.
  

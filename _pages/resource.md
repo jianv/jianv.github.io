@@ -31,9 +31,13 @@ Machine Learning Online Resource:
 * Carnegie Mellon
   [link](http://www.cs.cmu.edu/~ninamf/courses/601sp15/lectures.shtml)
   
-ML-Algorithm Cheat Sheet:
+Cheat Sheet:
 * Scikit-learn Cheat Sheet
   [link](http://scikit-learn.org/stable/tutorial/machine_learning_map/)
+* Python for Data Science
+  [link](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf)
+* Python for Scikit-learn
+  [link](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/PythonForDataScience.pdf)
 
 Big Data Online Resource:
 * SQL

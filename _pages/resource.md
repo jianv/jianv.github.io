@@ -30,6 +30,10 @@ Machine Learning Online Resource:
   [link](http://cs229.stanford.edu/)
 * Carnegie Mellon
   [link](http://www.cs.cmu.edu/~ninamf/courses/601sp15/lectures.shtml)
+  
+ML-Algorithm Cheat Sheet:
+* Scikit-learn Cheat Sheet
+  [link](http://scikit-learn.org/stable/tutorial/machine_learning_map/)
 
 Big Data Online Resource:
 * SQL

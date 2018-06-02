@@ -64,7 +64,7 @@ Data Structure and Algorithm:
   [link](https://leetcode.com/)
 
 Statistics Online Resource:
-* Intro to Statistics]
+* Intro to Statistics
   [link](https://www.udacity.com/course/intro-to-statistics–st101)
 * Intro to Descriptive Statistics
   [link](https://www.udacity.com/course/intro-to-descriptive-statistics–ud827)
